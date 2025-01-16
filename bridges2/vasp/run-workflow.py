@@ -4,6 +4,8 @@ from pathlib import Path
 
 import yaml
 from atomate2.settings import Atomate2Settings
+from atomate2.vasp.jobs.core import StaticMaker
+from atomate2.vasp.powerups import add_metadata_to_flow
 from jobflow import run_locally
 from mp_api.client import MPRester
 from pymatgen.io.vasp.sets import MPStaticSet
@@ -65,7 +67,6 @@ with MPRester() as mpr:
 
 structure = docs[0].structure
 
-from atomate2.vasp.jobs.core import StaticMaker
 
 # create a custom input generator set with a larger ENCUT
 input_set_generator = MPStaticSet(
@@ -90,6 +91,15 @@ static_maker = StaticMaker(
 
 # create a job using the customised maker
 flow = static_maker.make(structure)
+
+add_metadata_to_flow(
+    flow,
+    metadata={
+        "project": "benchmark-bridges2",
+        "resources": resources,
+        "version": "0.0.1a",
+    },
+)
 
 
 print("Running workflow")
