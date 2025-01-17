@@ -1,11 +1,11 @@
 scheduler: 
   type: slurm
   resources:
-    job_name: benchmark
+    job_name: bm-bridges2-vasp
     nodes: 1
     ntasks_per_node: 64
     partition: RM
-    time: 00:30:00
+    time: 02:00:00
     output: slurm-%j.out
     error: slurm-%j.err
   work_dir:
@@ -19,11 +19,10 @@ scheduler:
     
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/packages/hdf5/hdf5-1.14.5/GNU/lib
   post_run:
-  modfules:
-    - anaconda3
-    - openmpi/5.0.3-gcc13.2.1
-    - intel-mkl/2023.2.0
-    - cuda/11.7.1
-vasp_std: /opt/packages/VASP/VASP6/6.4.3/GNU-SHMEM/vasp_std
-vasp_gam: /opt/packages/VASP/VASP6/6.4.3/GNU-SHMEM/vasp_gam
-vasp_ncl: /opt/packages/VASP/VASP6/6.4.3/GNU-SHMEM/vasp_ncl
+  modules:
+job:
+  vasp:
+    path: /opt/packages/VASP/VASP6/6.4.3/GNU-SHMEM
+    INCAR:
+      NCORE: 1
+      KPAR: 1
