@@ -5,7 +5,7 @@ scheduler:
     nodes: 1
     ntasks_per_node: 64
     partition: RM
-    time: 02:00:00
+    time: 04:00:00
     output: slurm-%j.out
     error: slurm-%j.err
   work_dir:

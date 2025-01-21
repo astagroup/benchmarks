@@ -28,7 +28,7 @@ from pymatgen.io.vasp.sets import MPStaticSet
 
 # %% General, HPC resources, atomate2 settings
 
-__version__ = "0.0.1a"
+__version__ = "0.0.1"
 ncpus_per_node = 64
 
 
@@ -109,7 +109,7 @@ def main():
     )
     num_processes = nodes * ntasks_per_node
 
-    structure = Structure.from_file(Path(__file__) / "POSCAR.O108Pb36Ti18Zr18")
+    structure = Structure.from_file(Path(__file__).parent / "POSCAR.O108Pb36Ti18Zr18")
 
     user_incar_settings = {
         "ALGO": "Normal",
